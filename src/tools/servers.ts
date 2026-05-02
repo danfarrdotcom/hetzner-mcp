@@ -36,4 +36,11 @@ export function registerServerTools(mcp: McpServer) {
   mcp.tool("shutdown_server", "Graceful ACPI shutdown", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/shutdown`)));
   mcp.tool("reboot_server", "Soft reboot", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/reboot`)));
   mcp.tool("reset_server", "Hard reset", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/reset`)));
+
+  mcp.tool("rebuild_server", "Rebuild with new image (destroys data)", { server_id: z.number(), image: z.string() }, async ({ server_id, image }) => r(await api.post(`/servers/${server_id}/actions/rebuild`, { image })));
+
+  mcp.tool("resize_server", "Change type (power off first)", { server_id: z.number(), server_type: z.string(), upgrade_disk: z.boolean().optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/change_type`, b)));
+
+  mcp.tool("enable_rescue_mode", "Enable rescue mode", { server_id: z.number(), type: z.enum(["linux64"]).optional(), ssh_keys: z.array(z.number()).optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/enable_rescue`, b)));
+  mcp.tool("disable_rescue_mode", "Disable rescue mode", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/disable_rescue`)));
 }
