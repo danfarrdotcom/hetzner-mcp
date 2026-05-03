@@ -48,4 +48,11 @@ export function registerServerTools(mcp: McpServer) {
   mcp.tool("disable_backup", "Disable backups", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/disable_backup`)));
 
   mcp.tool("create_image_from_server", "Create snapshot from server", { server_id: z.number(), description: z.string().optional(), type: z.enum(["snapshot", "backup"]).optional(), labels: z.record(z.string()).optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/create_image`, b)));
+
+  mcp.tool("get_server_metrics", "Get CPU/disk/network metrics", { server_id: z.number(), type: z.string().describe("cpu,disk,network"), start: z.string().describe("ISO8601"), end: z.string().describe("ISO8601") }, async ({ server_id, type, start, end }) => r(await api.get(`/servers/${server_id}/metrics?type=${type}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`)));
+
+  mcp.tool("attach_iso_to_server", "Attach ISO", { server_id: z.number(), iso: z.string() }, async ({ server_id, iso }) => r(await api.post(`/servers/${server_id}/actions/attach_iso`, { iso })));
+  mcp.tool("detach_iso_from_server", "Detach ISO", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/detach_iso`)));
+
+  mcp.tool("change_server_dns_ptr", "Set reverse DNS", { server_id: z.number(), ip: z.string(), dns_ptr: z.string().nullable() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/change_dns_ptr`, b)));
 }
