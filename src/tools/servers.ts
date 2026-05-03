@@ -43,4 +43,9 @@ export function registerServerTools(mcp: McpServer) {
 
   mcp.tool("enable_rescue_mode", "Enable rescue mode", { server_id: z.number(), type: z.enum(["linux64"]).optional(), ssh_keys: z.array(z.number()).optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/enable_rescue`, b)));
   mcp.tool("disable_rescue_mode", "Disable rescue mode", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/disable_rescue`)));
+
+  mcp.tool("enable_backup", "Enable backups", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/enable_backup`)));
+  mcp.tool("disable_backup", "Disable backups", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/disable_backup`)));
+
+  mcp.tool("create_image_from_server", "Create snapshot from server", { server_id: z.number(), description: z.string().optional(), type: z.enum(["snapshot", "backup"]).optional(), labels: z.record(z.string()).optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/create_image`, b)));
 }
