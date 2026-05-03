@@ -55,4 +55,8 @@ export function registerServerTools(mcp: McpServer) {
   mcp.tool("detach_iso_from_server", "Detach ISO", { server_id: z.number() }, async ({ server_id }) => r(await api.post(`/servers/${server_id}/actions/detach_iso`)));
 
   mcp.tool("change_server_dns_ptr", "Set reverse DNS", { server_id: z.number(), ip: z.string(), dns_ptr: z.string().nullable() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/change_dns_ptr`, b)));
+
+  mcp.tool("change_server_protection", "Set delete/rebuild protection", { server_id: z.number(), delete: z.boolean().optional(), rebuild: z.boolean().optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/change_protection`, b)));
+
+  mcp.tool("update_server", "Update name/labels", { server_id: z.number(), name: z.string().optional(), labels: z.record(z.string()).optional() }, async ({ server_id, ...b }) => r(await api.put(`/servers/${server_id}`, b)));
 }
