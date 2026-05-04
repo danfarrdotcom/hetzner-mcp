@@ -19,4 +19,10 @@ export function registerNetworkTools(mcp: McpServer) {
 
   mcp.tool("add_subnet_to_network", "Add subnet", { network_id: z.number(), type: z.enum(["cloud", "server", "vswitch"]), ip_range: z.string(), network_zone: z.string(), vswitch_id: z.number().optional() }, async ({ network_id, ...b }) => r(await api.post(`/networks/${network_id}/actions/add_subnet`, b)));
   mcp.tool("delete_subnet_from_network", "Remove subnet", { network_id: z.number(), ip_range: z.string() }, async ({ network_id, ip_range }) => r(await api.post(`/networks/${network_id}/actions/delete_subnet`, { ip_range })));
+
+  mcp.tool("add_route_to_network", "Add route", { network_id: z.number(), destination: z.string(), gateway: z.string() }, async ({ network_id, ...b }) => r(await api.post(`/networks/${network_id}/actions/add_route`, b)));
+  mcp.tool("delete_route_from_network", "Remove route", { network_id: z.number(), destination: z.string(), gateway: z.string() }, async ({ network_id, ...b }) => r(await api.post(`/networks/${network_id}/actions/delete_route`, b)));
+
+  mcp.tool("attach_server_to_network", "Attach server to network", { server_id: z.number(), network: z.number(), ip: z.string().optional(), alias_ips: z.array(z.string()).optional() }, async ({ server_id, ...b }) => r(await api.post(`/servers/${server_id}/actions/attach_to_network`, b)));
+  mcp.tool("detach_server_from_network", "Detach server from network", { server_id: z.number(), network: z.number() }, async ({ server_id, network }) => r(await api.post(`/servers/${server_id}/actions/detach_from_network`, { network })));
 }
