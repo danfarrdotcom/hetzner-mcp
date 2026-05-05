@@ -27,4 +27,9 @@ export function registerLoadBalancerTools(mcp: McpServer) {
   mcp.tool("add_service_to_load_balancer", "Add service", { load_balancer_id: z.number(), protocol: z.enum(["tcp", "http", "https"]), listen_port: z.number(), destination_port: z.number(), proxyprotocol: z.boolean().optional(), health_check: z.object({ protocol: z.enum(["tcp", "http", "https"]), port: z.number(), interval: z.number().optional(), timeout: z.number().optional(), retries: z.number().optional() }).optional() }, async ({ load_balancer_id, ...b }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/add_service`, b)));
 
   mcp.tool("delete_service_from_load_balancer", "Remove service", { load_balancer_id: z.number(), listen_port: z.number() }, async ({ load_balancer_id, listen_port }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/delete_service`, { listen_port })));
+
+  mcp.tool("attach_load_balancer_to_network", "Attach LB to network", { load_balancer_id: z.number(), network: z.number(), ip: z.string().optional() }, async ({ load_balancer_id, ...b }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/attach_to_network`, b)));
+  mcp.tool("detach_load_balancer_from_network", "Detach LB from network", { load_balancer_id: z.number(), network: z.number() }, async ({ load_balancer_id, network }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/detach_from_network`, { network })));
+
+  mcp.tool("get_load_balancer_metrics", "Get LB metrics", { load_balancer_id: z.number(), type: z.string().describe("open_connections,connections_per_second,requests_per_second,bandwidth.in,bandwidth.out"), start: z.string(), end: z.string() }, async ({ load_balancer_id, type, start, end }) => r(await api.get(`/load_balancers/${load_balancer_id}/metrics?type=${type}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`)));
 }
