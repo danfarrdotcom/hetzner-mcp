@@ -19,4 +19,12 @@ export function registerLoadBalancerTools(mcp: McpServer) {
   }, async (p) => r(await api.post("/load_balancers", p)));
 
   mcp.tool("delete_load_balancer", "Delete LB", { load_balancer_id: z.number() }, async ({ load_balancer_id }) => { await api.delete(`/load_balancers/${load_balancer_id}`); return ok("Deleted"); });
+
+  mcp.tool("add_target_to_load_balancer", "Add target", { load_balancer_id: z.number(), type: z.enum(["server", "label_selector", "ip"]), server: z.object({ id: z.number() }).optional(), label_selector: z.object({ selector: z.string() }).optional(), ip: z.object({ ip: z.string() }).optional(), use_private_ip: z.boolean().optional() }, async ({ load_balancer_id, ...b }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/add_target`, b)));
+
+  mcp.tool("remove_target_from_load_balancer", "Remove target", { load_balancer_id: z.number(), type: z.enum(["server", "label_selector", "ip"]), server: z.object({ id: z.number() }).optional(), label_selector: z.object({ selector: z.string() }).optional(), ip: z.object({ ip: z.string() }).optional() }, async ({ load_balancer_id, ...b }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/remove_target`, b)));
+
+  mcp.tool("add_service_to_load_balancer", "Add service", { load_balancer_id: z.number(), protocol: z.enum(["tcp", "http", "https"]), listen_port: z.number(), destination_port: z.number(), proxyprotocol: z.boolean().optional(), health_check: z.object({ protocol: z.enum(["tcp", "http", "https"]), port: z.number(), interval: z.number().optional(), timeout: z.number().optional(), retries: z.number().optional() }).optional() }, async ({ load_balancer_id, ...b }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/add_service`, b)));
+
+  mcp.tool("delete_service_from_load_balancer", "Remove service", { load_balancer_id: z.number(), listen_port: z.number() }, async ({ load_balancer_id, listen_port }) => r(await api.post(`/load_balancers/${load_balancer_id}/actions/delete_service`, { listen_port })));
 }
