@@ -1,5 +1,13 @@
 # hetzner-mcp
 
+[![npm version](https://img.shields.io/npm/v/hetzner-mcp.svg)](https://www.npmjs.com/package/hetzner-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org)
+[![MCP SDK](https://img.shields.io/badge/MCP-Official_SDK-purple.svg)](https://modelcontextprotocol.io)
+[![Zero Dependencies](https://img.shields.io/badge/deps-0_runtime-brightgreen.svg)](#)
+[![Tools](https://img.shields.io/badge/tools-70+-orange.svg)](#tools-70)
+
 A comprehensive MCP server for the Hetzner Cloud API. Significantly more capable than [dkruyt/mcp-hetzner](https://github.com/dkruyt/mcp-hetzner).
 
 ## What's better
@@ -128,8 +136,19 @@ Add to your MCP config:
 ## Development
 
 ```bash
-npm run dev
+npm run dev  # Run with tsx (no build needed)
 ```
+
+## Releasing
+
+Tag a version to trigger the release workflow:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+This will automatically publish to npm and create a GitHub release.
 
 ## License
 
