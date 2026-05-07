@@ -1,15 +1,29 @@
 {
   "name": "hetzner-mcp",
   "version": "1.0.0",
-  "description": "A comprehensive MCP server for Hetzner Cloud API",
+  "description": "A comprehensive MCP server for Hetzner Cloud API — 70+ tools, zero dependencies",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "hetzner-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build"
   },
+  "keywords": ["mcp", "hetzner", "cloud", "server", "model-context-protocol"],
+  "author": "drfarr",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drfarr/hetzner-mcp.git"
+  },
+  "homepage": "https://github.com/drfarr/hetzner-mcp",
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.12.1"
   },
