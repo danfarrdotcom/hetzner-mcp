@@ -1,6 +1,6 @@
 # hetzner-mcp
 
-[![npm version](https://img.shields.io/npm/v/hetzner-mcp.svg)](https://www.npmjs.com/package/hetzner-mcp)
+[![npm version](https://img.shields.io/npm/v/@danfarrdotcom%2Fhetzner-mcp.svg)](https://www.npmjs.com/package/@danfarrdotcom/hetzner-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org)
@@ -8,35 +8,7 @@
 [![Zero Dependencies](https://img.shields.io/badge/deps-0_runtime-brightgreen.svg)](#)
 [![Tools](https://img.shields.io/badge/tools-70+-orange.svg)](#tools-70)
 
-A comprehensive MCP server for the Hetzner Cloud API. Significantly more capable than [dkruyt/mcp-hetzner](https://github.com/dkruyt/mcp-hetzner).
-
-## What's better
-
-| Feature | dkruyt/mcp-hetzner | hetzner-mcp |
-|---------|-------------------|-------------|
-| Networks/Subnets/Routes | ❌ | ✅ |
-| Floating IPs | ❌ | ✅ |
-| Primary IPs | ❌ | ✅ |
-| Load Balancers | ❌ | ✅ |
-| Certificates (TLS) | ❌ | ✅ |
-| Placement Groups | ❌ | ✅ |
-| Server Metrics | ❌ | ✅ |
-| Snapshots/Backups | ❌ | ✅ |
-| Rescue Mode | ❌ | ✅ |
-| Server Rebuild | ❌ | ✅ |
-| Server Resize | ❌ | ✅ |
-| ISO attach/detach | ❌ | ✅ |
-| Reverse DNS | ❌ | ✅ |
-| Protection settings | ❌ | ✅ |
-| Graceful shutdown | ❌ | ✅ |
-| Pricing info | ❌ | ✅ |
-| Actions audit log | ❌ | ✅ |
-| Label filtering | ❌ | ✅ |
-| Language | Python | TypeScript |
-| Dependencies | hcloud SDK + dotenv | Zero (native fetch) |
-| Architecture | Monolithic 700-line file | Modular per-resource |
-| Async | ❌ (blocking) | ✅ (native async) |
-| MCP SDK | FastMCP (Python) | Official @modelcontextprotocol/sdk |
+70+ tools for Hetzner Cloud — servers, volumes, firewalls, networks, load balancers, floating IPs, primary IPs, SSH keys, images, certificates, placement groups, and pricing info.
 
 ## Tools (70+)
 
@@ -86,7 +58,7 @@ npm run build
 Or install globally from npm:
 
 ```bash
-npx hetzner-mcp
+npx @danfarrdotcom/hetzner-mcp
 ```
 
 ## Configuration
@@ -106,7 +78,7 @@ Add to your MCP config:
   "mcpServers": {
     "hetzner": {
       "command": "npx",
-      "args": ["-y", "hetzner-mcp"],
+      "args": ["-y", "@danfarrdotcom/hetzner-mcp"],
       "env": {
         "HCLOUD_TOKEN": "your_token_here"
       }
@@ -123,7 +95,7 @@ Add to your MCP config:
     "servers": {
       "hetzner": {
         "command": "npx",
-        "args": ["-y", "hetzner-mcp"],
+        "args": ["-y", "@danfarrdotcom/hetzner-mcp"],
         "env": {
           "HCLOUD_TOKEN": "your_token_here"
         }

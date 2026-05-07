@@ -1,5 +1,5 @@
 {
-  "name": "hetzner-mcp",
+  "name": "@danfarrdotcom/hetzner-mcp",
   "version": "1.0.0",
   "description": "A comprehensive MCP server for Hetzner Cloud API — 70+ tools, zero dependencies",
   "type": "module",
