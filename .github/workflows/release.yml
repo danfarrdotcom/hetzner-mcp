@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - main
 
 jobs:
   release:
@@ -22,6 +22,8 @@ jobs:
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: softprops/action-gh-release@v2
-        with:
-          generate_release_notes: true
+      - run: |
+          VERSION=v$(node -p "require('./package.json').version")
+          gh release create "$VERSION" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
